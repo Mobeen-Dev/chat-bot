@@ -9,8 +9,8 @@ generator client {
 // enough when changing adapters.
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "postgresql"
+  url      = env("DB_URL")
 }
 
 model Session {
@@ -30,3 +30,12 @@ model Session {
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
 }
+
+model Faq {
+  id         String   @id @default(uuid()) @db.Uuid
+  title      String
+  category   String
+  data       String
+  metadata   Json     // Stores the metadata object as JSON
+}
+
